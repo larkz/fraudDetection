@@ -37,22 +37,17 @@ save(testSummaryRegress, file = "testSummaryRegress.RData")
 load("trainSummaryRegress.RData")
 load("testSummaryRegress.RData")
 
+load("trainSummaryDataEncoded.RData")
+load("testSummaryDataEncoded.RData")
+
 # Logistic Regression and ROC on all Features --------------------
 
+cor(data.matrix(trainSummaryRegress[,c("b1", "b2", "b3", "b4", "b5", "v1", "v3", "v4", "v5", "v6", "v7", "v9")]))
 
 
-summary(fit_tsagg_end <- glm(isFraud ~ b1
-                             + b2
-                             + b3
-                             + b4
-                             + b5
-                             + v1
-                             + v3
-                             + v4
-                             + v5
-                             + v6
-                             + v7
-                             + v9, data = trainSummaryRegress, family = binomial))
+
+
+summary(fit_tsagg_end <- glm(isFraud ~ b1 + b2 + b3 + b4 + v1 + v3 + v4 + v5 + v6 + v7 + v9, data = trainSummaryDataEncoded, family = binomial))
 
 
 prob <- predict(fit_tsagg_end, newdata=testSummaryRegress, type="response")
